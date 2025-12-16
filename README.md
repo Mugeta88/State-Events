@@ -1,73 +1,11 @@
-# React + TypeScript + Vite
+1. How did you handle state updates when the text changed?
+   I used React’s useState hook to track the current text input in the CharacterCounter component. The TextInput component receives a callback prop onTextChange, which is called on every onChange event in the textarea. 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+2. What considerations did you make when calculating reading time?
+   I calculated reading time based on the average reading speed of 200 words per minute. Each time the text updates, I split the text by whitespace, filtered out empty strings to get the word count, and then divided by 200 to get the reading time in minutes. I also formatted the reading time into minutes and seconds for user-friendly display.
 
-Currently, two official plugins are available:
+3. How did you ensure the UI remained responsive during rapid text input?
+   Since all calculations are simple and done in-memory (counting characters, words, and computing reading time), no heavy computations or API calls are involved. I avoided unnecessary re-renders by keeping each component focused on its responsibilities and passing only the minimal necessary props (stats for StatsDisplay).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+4. What challenges did you face when implementing the statistics calculations?
+   One challenge was accurately counting words, especially with extra spaces, newlines, or multiple consecutive spaces. I solved this by trimming the text and filtering out empty strings after splitting by whitespace. 
